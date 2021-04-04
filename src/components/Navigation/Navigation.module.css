@@ -1,0 +1,44 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 6px;
+}
+.link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  padding: 2px;
+  font-weight: 500;
+  color: #2a363b;
+  font-size: 18px;
+}
+.prompt {
+  position: absolute;
+  /* width: 300px; */
+  left: 0;
+  top: 0px;
+  font-size: 14px;
+  color: #fff;
+  padding: 0.5em;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  transition: 300ms;
+}
+.link:hover .prompt {
+  opacity: 1;
+  top: 35px;
+}
+.activeLink {
+  composes: link;
+  box-shadow: 2px 2px 5px white;
+}
+
+.user_menu {
+  display: flex;
+  justify-content: space-between;
+  width: 80px;
+}

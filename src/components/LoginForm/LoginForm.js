@@ -1,0 +1,74 @@
+import React, { Component } from 'react';
+
+import Icon from '@material-ui/core/Icon';
+import grey from '@material-ui/core/colors/grey';
+import s from './LoginForm.module.css';
+
+class LoginView extends Component {
+  state = {
+    email: '',
+    password: '',
+  };
+
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.props.onLogin(this.state);
+
+    this.setState({ name: '', email: '', password: '' });
+  };
+
+  render() {
+    const { email, password } = this.state;
+
+    return (
+      <>
+        <h1>Login</h1>
+
+        <form
+          onSubmit={this.handleSubmit}
+          className={s.login__form}
+          autoComplete="off"
+        >
+          <div>
+            <div className={s.login__field}>
+              <Icon style={{ color: grey[500], fontSize: 20 }}>
+                alternate_email
+              </Icon>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                placeholder="e-mail"
+                onChange={this.handleChange}
+              />
+              <label className={s.label_mail}>e-mail</label>
+            </div>
+            <div className={s.login__field}>
+              <Icon style={{ color: grey[500], fontSize: 20 }}>pan_tool</Icon>
+              <input
+                type="password"
+                name="password"
+                value={password}
+                placeholder="Password"
+                onChange={this.handleChange}
+              />
+              <label className={s.label_passw}>Password</label>
+            </div>
+
+            <button className={s.login__btn} type="submit">
+              <Icon style={{ color: grey[50], fontSize: 30 }}>exit_to_app</Icon>
+              {/* <Icon style={{ color: grey[50], fontSize: 30 }}>logout</Icon> */}
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+}
+
+export default LoginView;
