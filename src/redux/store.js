@@ -9,9 +9,10 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-
+import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
 import contactReducer from './contacts/contact-reducer';
+import { userAuthReducer } from './user';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -21,14 +22,20 @@ const middleware = [
   }),
   logger,
 ];
-
+const authPersistConfig = {
+  key: 'userAuth',
+  storage,
+  whitelist: ['token'],
+};
 const store = configureStore({
   reducer: {
     state: contactReducer,
+    userAuth: persistReducer(authPersistConfig, userAuthReducer),
   },
   middleware,
+  devTools: process.env.NODE_ENV === 'development',
 });
 
-export default store;
+const persistor = persistStore(store);
 
-// const persistor = persistStore(store);
+export default { store, persistor };

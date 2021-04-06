@@ -1,5 +1,3 @@
-// "api-server": "json-server --port 4040 --delay 300 --watch db.json"
-
 # Getting Started with Create React App
 
 This project was bootstrapped with

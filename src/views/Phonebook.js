@@ -6,11 +6,14 @@ import Filter from '../components/Filter';
 import ContactItem from '../components/ContactItem';
 import Loader from '../components/Loader';
 import { operations, selectors } from '../redux/contacts';
+import { userAuthSelectors } from '../redux/user';
 
 class Phonebook extends Component {
   componentDidMount() {
+    console.log(this.props.token);
     this.props.fetchContacts();
   }
+
   render() {
     return (
       <>
@@ -29,6 +32,7 @@ class Phonebook extends Component {
 
 const mapStateToProps = state => ({
   isLoading: selectors.getLoading(state),
+  token: userAuthSelectors.getIsAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({

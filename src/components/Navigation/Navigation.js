@@ -18,24 +18,6 @@ const Navigation = () => (
         <span className={styles.prompt}>Home</span>
       </NavLink>
     </div>
-    <div className={styles.user_menu}>
-      <NavLink
-        to={routes.register}
-        className={styles.link}
-        activeClassName={styles.activeLink}
-      >
-        <Icon style={{ color: grey[50], fontSize: 25 }}>person_add</Icon>
-        <span className={styles.prompt}>Register</span>
-      </NavLink>
-      <NavLink
-        to={routes.login}
-        className={styles.link}
-        activeClassName={styles.activeLink}
-      >
-        <Icon style={{ color: grey[50], fontSize: 25 }}>exit_to_app</Icon>
-        <span className={styles.prompt}>Login</span>
-      </NavLink>
-    </div>
   </nav>
 );
 

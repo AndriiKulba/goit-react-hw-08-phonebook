@@ -1,6 +1,7 @@
 import './App.css';
 import React, { Component, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import AppBar from './components/AppBAr/AppBar';
 import Container from './components/Container/Container';
 import HomeView from './views/HomeView';
@@ -10,10 +11,14 @@ import RegisterView from './views/RegisterView';
 import NotFoundViews from './views/NotFoundView';
 import Loader from './components/Loader';
 import routes from './routes';
+import { userAuthOperations } from './redux/user';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.onGetCurretnUser();
+  }
   render() {
     const { home, contacts, register, login } = routes;
     return (
@@ -35,4 +40,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = {
+  onGetCurretnUser: userAuthOperations.getCurrentUser,
+};
+
+export default connect(null, mapDispatchToProps)(App);

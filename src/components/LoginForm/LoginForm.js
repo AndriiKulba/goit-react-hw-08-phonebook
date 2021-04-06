@@ -1,29 +1,25 @@
 import React, { Component } from 'react';
-
 import Icon from '@material-ui/core/Icon';
 import grey from '@material-ui/core/colors/grey';
 import s from './LoginForm.module.css';
-
-class LoginView extends Component {
-  state = {
-    email: '',
-    password: '',
-  };
-
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
-
+import { connect } from 'react-redux';
+import {
+  userAuthOperations,
+  userAuthSelectors,
+  userAuthActions,
+} from '../../redux/user';
+import axios from 'axios';
+class LoginForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.props.onLogin(this.state);
-
-    this.setState({ name: '', email: '', password: '' });
+    this.props.onLogin(this.props.values);
+    this.props.resetValue('');
   };
 
   render() {
-    const { email, password } = this.state;
+    const { values, handleChange } = this.props;
+    const { email, password } = values;
 
     return (
       <>
@@ -44,7 +40,7 @@ class LoginView extends Component {
                 name="email"
                 value={email}
                 placeholder="e-mail"
-                onChange={this.handleChange}
+                onChange={handleChange}
               />
               <label className={s.label_mail}>e-mail</label>
             </div>
@@ -55,14 +51,13 @@ class LoginView extends Component {
                 name="password"
                 value={password}
                 placeholder="Password"
-                onChange={this.handleChange}
+                onChange={handleChange}
               />
               <label className={s.label_passw}>Password</label>
             </div>
 
             <button className={s.login__btn} type="submit">
               <Icon style={{ color: grey[50], fontSize: 30 }}>exit_to_app</Icon>
-              {/* <Icon style={{ color: grey[50], fontSize: 30 }}>logout</Icon> */}
             </button>
           </div>
         </form>
@@ -70,5 +65,17 @@ class LoginView extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  values: {
+    email: userAuthSelectors.getEmail(state),
+    password: userAuthSelectors.getPassword(state),
+  },
+});
+const mapDispatchToProps = dispatch => ({
+  onLogin: val => dispatch(userAuthOperations.logIn(val)),
+  handleChange: e =>
+    dispatch(userAuthActions.addValue(e.target.name, e.target.value)),
+  resetValue: value => dispatch(userAuthActions.resetValue(value)),
+});
 
-export default LoginView;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

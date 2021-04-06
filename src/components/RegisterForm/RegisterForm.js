@@ -2,33 +2,32 @@ import React, { Component } from 'react';
 import Icon from '@material-ui/core/Icon';
 import grey from '@material-ui/core/colors/grey';
 import s from './RegisterForm.module.css';
+import { connect } from 'react-redux';
+import {
+  userAuthOperations,
+  userAuthSelectors,
+  userAuthActions,
+} from '../../redux/user';
 
 class RegisterForm extends Component {
-  state = {
-    name: '',
-    email: '',
-    password: '',
-  };
-
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
-
   handleSubmit = e => {
     e.preventDefault();
-
-    this.props.onRegister(this.state);
-
-    this.setState({ name: '', email: '', password: '' });
+    const val = this.props.values;
+    console.log(val);
+    this.props.onRegister(this.props.values);
+    this.props.resetValue('');
   };
 
   render() {
-    const { name, email, password } = this.state;
-
+    const { values, handleChange } = this.props;
+    console.log(values);
+    // const name = '';
+    // const email = '';
+    // const password = '';
+    // const handleChange = '';
     return (
       <>
-        <h1>Registaration</h1>
-
+        <h1>Registr</h1>
         <form
           onSubmit={this.handleSubmit}
           className={s.register__form}
@@ -42,9 +41,9 @@ class RegisterForm extends Component {
               <input
                 type="text"
                 name="name"
-                value={name}
+                value={values.regname}
                 placeholder="Name"
-                onChange={this.handleChange}
+                onChange={handleChange}
               />
               <label className={s.label_name}>Name </label>
             </div>
@@ -55,9 +54,9 @@ class RegisterForm extends Component {
               <input
                 type="email"
                 name="email"
-                value={email}
+                value={values.email}
                 placeholder="e-mail"
-                onChange={this.handleChange}
+                onChange={handleChange}
               />
               <label className={s.label_mail}>e-mail </label>
             </div>{' '}
@@ -66,9 +65,9 @@ class RegisterForm extends Component {
               <input
                 type="password"
                 name="password"
-                value={password}
+                value={values.password}
                 placeholder="Password"
-                onChange={this.handleChange}
+                onChange={handleChange}
               />
               <label className={s.label_passw}>Password </label>
             </div>
@@ -82,4 +81,18 @@ class RegisterForm extends Component {
   }
 }
 
-export default RegisterForm;
+const mapStateToProps = state => ({
+  values: {
+    name: userAuthSelectors.getName(state),
+    email: userAuthSelectors.getEmail(state),
+    password: userAuthSelectors.getPassword(state),
+  },
+});
+const mapDispatchToProps = dispatch => ({
+  onRegister: val => dispatch(userAuthOperations.register(val)),
+  handleChange: e =>
+    dispatch(userAuthActions.addValue(e.target.name, e.target.value)),
+  resetValue: value => dispatch(userAuthActions.resetValue(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);

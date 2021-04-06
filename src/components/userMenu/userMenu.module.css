@@ -1,0 +1,40 @@
+.user_menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.username {
+  color: rgb(212, 207, 207);
+  font-size: 13px;
+  font-style: italic;
+}
+.prompt {
+  position: absolute;
+  /* width: 300px; */
+  left: 0;
+  top: 0px;
+  font-size: 14px;
+  color: #fff;
+  padding: 0.5em;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  transition: 300ms;
+}
+
+.btn_logout {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  padding: 2px;
+  background-color: rgb(59, 57, 57);
+  margin-left: 5px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  box-shadow: 2px 2px 5px rgb(133, 133, 133);
+}
+.btn_logout:hover .prompt {
+  opacity: 1;
+  top: 35px;
+}
