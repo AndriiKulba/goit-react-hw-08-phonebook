@@ -43,7 +43,6 @@ ContactItem.propTypes = {
 
 const mapStateToProps = state => ({
   contacts: selectors.getvisibleContacts(state),
-  token: userAuthSelectors.getIsAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({

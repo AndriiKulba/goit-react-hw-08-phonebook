@@ -12,19 +12,13 @@ import {
 class RegisterForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
-    const val = this.props.values;
-    console.log(val);
     this.props.onRegister(this.props.values);
     this.props.resetValue('');
   };
 
   render() {
     const { values, handleChange } = this.props;
-    console.log(values);
-    // const name = '';
-    // const email = '';
-    // const password = '';
-    // const handleChange = '';
+
     return (
       <>
         <h1>Registr</h1>
@@ -41,7 +35,7 @@ class RegisterForm extends Component {
               <input
                 type="text"
                 name="name"
-                value={values.regname}
+                value={values.name}
                 placeholder="Name"
                 onChange={handleChange}
               />

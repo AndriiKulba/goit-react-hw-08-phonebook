@@ -26,6 +26,15 @@ const error = createReducer(null, {
   [userAuthActions.getCurrentUserError]: setError,
 });
 
+const isLogin = createReducer(false, {
+  [userAuthActions.registerSuccess]: () => true,
+  [userAuthActions.loginSuccess]: () => true,
+  [userAuthActions.getCurrentUserSuccess]: () => true,
+  [userAuthActions.registerError]: () => false,
+  [userAuthActions.loginError]: () => false,
+  [userAuthActions.getCurrentUserError]: () => false,
+  [userAuthActions.logoutSuccess]: () => false,
+});
 const name = createReducer('', {
   'auth/addname': (_, { payload }) => payload,
   [userAuthActions.resetValue]: (_, { payload }) => payload,
@@ -45,6 +54,7 @@ export default combineReducers({
   user,
   token,
   error,
+  isLogin,
   name,
   email,
   password,

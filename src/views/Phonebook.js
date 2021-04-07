@@ -10,7 +10,6 @@ import { userAuthSelectors } from '../redux/user';
 
 class Phonebook extends Component {
   componentDidMount() {
-    console.log(this.props.token);
     this.props.fetchContacts();
   }
 
@@ -32,7 +31,6 @@ class Phonebook extends Component {
 
 const mapStateToProps = state => ({
   isLoading: selectors.getLoading(state),
-  token: userAuthSelectors.getIsAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({
