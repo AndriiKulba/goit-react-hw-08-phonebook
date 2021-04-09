@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import userAuthActions from './userAuth-actions';
+import {
+  fetchContactsError,
+  addContactsError,
+  deleteContactsError,
+  resetValue,
+} from '../contacts/contact-actions';
 
 const initialUserState = { name: null, email: null };
 
@@ -17,18 +23,23 @@ const token = createReducer(null, {
   [userAuthActions.logoutSuccess]: () => null,
 });
 
-const setError = (_, { payload }) => payload;
+const setError = (_, { payload }) => payload.message;
 
 const error = createReducer(null, {
   [userAuthActions.registerError]: setError,
   [userAuthActions.loginError]: setError,
   [userAuthActions.logoutError]: setError,
   [userAuthActions.getCurrentUserError]: setError,
+  [fetchContactsError]: setError,
+  [addContactsError]: setError,
+  [deleteContactsError]: setError,
+  [userAuthActions.resetValue]: (_, { payload }) => payload,
 });
 
-const isLogin = createReducer(false, {
+const isLogin = createReducer(null, {
   [userAuthActions.registerSuccess]: () => true,
   [userAuthActions.loginSuccess]: () => true,
+  [userAuthActions.getCurrentUserRequest]: () => true,
   [userAuthActions.getCurrentUserSuccess]: () => true,
   [userAuthActions.registerError]: () => false,
   [userAuthActions.loginError]: () => false,

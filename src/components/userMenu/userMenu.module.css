@@ -23,6 +23,7 @@
 }
 
 .btn_logout {
+  height: 30px;
   position: relative;
   display: inline-block;
   text-decoration: none;

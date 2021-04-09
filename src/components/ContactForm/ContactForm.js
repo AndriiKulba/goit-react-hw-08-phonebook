@@ -11,6 +11,7 @@ import {
   addValue,
   resetValue,
 } from '../../redux/contacts';
+import { userAuthSelectors, userAuthActions } from '../../redux/user';
 
 const nameInputID = uuidv4();
 const numberInputID = uuidv4();
@@ -27,18 +28,36 @@ class ContactForm extends Component {
 
     this.props.resetValue('');
   };
-
+  clic = () => {
+    console.log(1234);
+    this.props.resetValue(null);
+  };
   render() {
-    const { name, number, handleChange } = this.props;
+    const { name, number, handleChange, error, resetValue } = this.props;
+
     return (
       <div className={s.phonebook}>
         <h1>{this.props.title}</h1>
+
+        <div
+          className={
+            !Boolean(error) ? 'msg_error ' : 'msg_error msg_error__active'
+          }
+        >
+          <h3>Attention!!!</h3>
+          <p>{error}</p>
+          <button className="close_btn" onClick={this.click}>
+            <Icon style={{ color: grey[500], fontSize: 20 }}>close</Icon>
+          </button>
+        </div>
+
         <form onSubmit={this.handleSubmit} className={s.phonebook__form}>
           <div>
             <div className={s.phonebook__field}>
               <Icon style={{ color: grey[500], fontSize: 20 }}>
                 perm_identity
               </Icon>
+
               <input
                 type="text"
                 name="name"
@@ -67,6 +86,9 @@ class ContactForm extends Component {
           <button type="submit" className={s.phonebook__btn}>
             <Icon style={{ color: grey[50], fontSize: 40 }}>add_circle</Icon>
           </button>
+          <button className="close_btn" onClick={this.click}>
+            <Icon style={{ color: grey[500], fontSize: 20 }}>close</Icon>
+          </button>
         </form>
       </div>
     );
@@ -84,11 +106,12 @@ const mapStateToProps = state => ({
   contacts: selectors.getContacts(state),
   name: selectors.getName(state),
   number: selectors.getNumber(state),
+  error: userAuthSelectors.getError(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   addContact: (name, number) => dispatch(operations.addContact(name, number)),
   handleChange: e => dispatch(addValue(e.target.name, e.target.value)),
-  resetValue: value => dispatch(resetValue(value)),
+  resetValue: value => dispatch(userAuthActions.resetValue(value)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

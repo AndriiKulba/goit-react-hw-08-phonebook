@@ -8,7 +8,8 @@ import {
   userAuthSelectors,
   userAuthActions,
 } from '../../redux/user';
-import axios from 'axios';
+import Fab from '@material-ui/core/Fab';
+
 class LoginForm extends Component {
   handleSubmit = e => {
     e.preventDefault();

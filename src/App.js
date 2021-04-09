@@ -4,14 +4,13 @@ import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppBar from './components/AppBAr/AppBar';
 import Container from './components/Container/Container';
-import NotFoundViews from './views/NotFoundView';
 import Loader from './components/Loader';
 import routes from './routes';
 import { userAuthOperations } from './redux/user';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import { exact } from 'prop-types';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const HomeView = lazy(() =>
   import('./views/HomeView' /* webpackChunkName: "home-page" */),
@@ -25,6 +24,10 @@ const LoginView = lazy(() =>
 const RegisterView = lazy(() =>
   import('./views/RegisterView' /* webpackChunkName: "register-page" */),
 );
+const NotFoundViews = lazy(() =>
+  import('./views/NotFoundView' /* webpackChunkName: "notFoud-page" */),
+);
+
 class App extends Component {
   componentDidMount() {
     this.props.onGetCurretnUser();
@@ -37,10 +40,10 @@ class App extends Component {
           <AppBar />
           <Suspense fallback={<Loader />}>
             <Switch>
-              <Route exact path={home} component={HomeView} />
+              <PublicRoute exact path={home} component={HomeView} />
               <PrivateRoute
                 path={contacts}
-                redirectTo="/"
+                redirectTo="/login"
                 component={Phonebook}
               />
               <PublicRoute
@@ -52,7 +55,7 @@ class App extends Component {
               <PublicRoute
                 path={login}
                 restricted
-                redirectTo="/"
+                redirectTo="/contacts"
                 component={LoginView}
               />
               <PublicRoute component={NotFoundViews} />

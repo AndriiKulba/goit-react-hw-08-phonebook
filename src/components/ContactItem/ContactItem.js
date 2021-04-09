@@ -5,28 +5,61 @@ import grey from '@material-ui/core/colors/grey';
 import s from './ContactItem.module.css';
 import { connect } from 'react-redux';
 import { operations, selectors } from '../../redux/contacts';
-import { userAuthSelectors } from '../../redux/user';
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
+import Avatar from '@material-ui/core/Avatar';
 
 class ContactItem extends Component {
   render() {
-    const { contacts, token, deleteContact } = this.props;
+    const { contacts, deleteContact } = this.props;
     return (
-      <ul className={s.contacts__list}>
+      <Accordion defaultActiveKey="0">
         {contacts.map(({ id, name, number }) => {
           return (
-            <li key={id} className={s.contacts__item}>
-              <p>
-                {name}: {number}
-              </p>
-              <button type="button" onClick={() => deleteContact(id)}>
+            <Card
+              key={id}
+              style={{
+                backgroundColor: 'rgb(39, 36, 36)',
+                borderRadius: '10px',
+              }}
+            >
+              <Accordion.Toggle
+                as={Card.Header}
+                eventKey={id}
+                style={{
+                  borderBottom: '1px solid grey',
+                }}
+              >
+                <Avatar
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                    fontSize: '12px',
+                    color: 'black',
+                  }}
+                >
+                  {name.substr(0, 2)}
+                </Avatar>
+                <p>{name}</p>
+              </Accordion.Toggle>
+              <button
+                type="button"
+                className={s.deleteBtn}
+                onClick={() => deleteContact(id)}
+              >
                 <Icon style={{ color: grey[50], fontSize: 26 }}>
                   delete_forever
                 </Icon>
               </button>
-            </li>
+              <Accordion.Collapse eventKey={id}>
+                <Card.Body style={{ padding: '3px', marginLeft: '60px' }}>
+                  {number}
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
           );
         })}
-      </ul>
+      </Accordion>
     );
   }
 }
@@ -87,3 +120,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(ContactItem);
 //   deleteContact: PropTypes.func.isRequired,
 // };
 // export default ContactItem;
+
+//  <ul className={s.contacts__list}>
+//         {contacts.map(({ id, name, number }) => {
+//           return (
+//             <li key={id} className={s.contacts__item}>
+//               <p>
+//                 {name}: {number}
+//               </p>
+//               <button type="button" onClick={() => deleteContact(id)}>
+//                 <Icon style={{ color: grey[50], fontSize: 26 }}>
+//                   delete_forever
+//                 </Icon>
+//               </button>
+//             </li>
+//           );
+//         })}
+//       </ul>

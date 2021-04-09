@@ -6,7 +6,6 @@ import Filter from '../components/Filter';
 import ContactItem from '../components/ContactItem';
 import Loader from '../components/Loader';
 import { operations, selectors } from '../redux/contacts';
-import { userAuthSelectors } from '../redux/user';
 
 class Phonebook extends Component {
   componentDidMount() {
@@ -17,6 +16,7 @@ class Phonebook extends Component {
     return (
       <>
         <ContactForm title="Phonebook" />
+
         <ContactList title="Contacts">
           <div className="filter_container">
             <Filter />

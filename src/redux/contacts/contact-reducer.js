@@ -33,6 +33,12 @@ const loading = createReducer(false, {
   [deleteContactsSuccess]: () => false,
   [deleteContactsError]: () => false,
 });
+const setError = (_, { payload }) => payload.message;
+// const error = createReducer(null, {
+//   [fetchContactsError]: setError,
+//   [addContactsError]: setError,
+//   [deleteContactsError]: setError,
+// });
 const name = createReducer('', {
   'values/addname': (_, { payload }) => payload,
   [resetValue]: (_, { payload }) => payload,
@@ -48,4 +54,11 @@ const filter = createReducer('', {
   [resetValue]: (_, { payload }) => payload,
 });
 
-export default combineReducers({ contacts, loading, name, number, filter });
+export default combineReducers({
+  contacts,
+  loading,
+
+  name,
+  number,
+  filter,
+});

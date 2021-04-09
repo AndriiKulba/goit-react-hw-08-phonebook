@@ -9,7 +9,9 @@
   border-radius: 2%;
   background-color: rgb(51, 47, 47);
 }
+
 .contacts__item {
+  width: 95%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,7 +29,10 @@
   display: none;
 }
 
-button {
+.deleteBtn {
+  position: absolute;
+  top: 4px;
+  right: 20px;
   background-color: rgb(39, 36, 36);
   cursor: pointer;
   border: none;
