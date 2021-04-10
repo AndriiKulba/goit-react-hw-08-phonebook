@@ -33,7 +33,7 @@ const loading = createReducer(false, {
   [deleteContactsSuccess]: () => false,
   [deleteContactsError]: () => false,
 });
-const setError = (_, { payload }) => payload.message;
+// const setError = (_, { payload }) => payload.message;
 // const error = createReducer(null, {
 //   [fetchContactsError]: setError,
 //   [addContactsError]: setError,

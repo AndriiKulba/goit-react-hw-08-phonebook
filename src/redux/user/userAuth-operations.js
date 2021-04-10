@@ -13,7 +13,6 @@ const token = {
 };
 
 const register = credentials => async dispatch => {
-  console.log(credentials);
   dispatch(authActions.registerRequest());
 
   try {
@@ -28,7 +27,7 @@ const register = credentials => async dispatch => {
 
 const logIn = credentials => async dispatch => {
   dispatch(authActions.loginRequest());
-  console.log(credentials);
+
   try {
     const response = await axios.post('/users/login', credentials);
 

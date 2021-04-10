@@ -5,7 +5,6 @@ import {
   fetchContactsError,
   addContactsError,
   deleteContactsError,
-  resetValue,
 } from '../contacts/contact-actions';
 
 const initialUserState = { name: null, email: null };
@@ -23,7 +22,7 @@ const token = createReducer(null, {
   [userAuthActions.logoutSuccess]: () => null,
 });
 
-const setError = (_, { payload }) => payload.message;
+const setError = (_, { payload }) => payload;
 
 const error = createReducer(null, {
   [userAuthActions.registerError]: setError,
@@ -33,7 +32,7 @@ const error = createReducer(null, {
   [fetchContactsError]: setError,
   [addContactsError]: setError,
   [deleteContactsError]: setError,
-  [userAuthActions.resetValue]: (_, { payload }) => payload,
+  [userAuthActions.resetError]: (_, { payload }) => payload,
 });
 
 const isLogin = createReducer(null, {

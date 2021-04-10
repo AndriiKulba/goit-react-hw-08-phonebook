@@ -16,6 +16,15 @@ const Navigation = () => (
       >
         <Icon style={{ color: grey[50], fontSize: 25 }}>home</Icon>
         <span className={styles.prompt}>Home</span>
+      </NavLink>{' '}
+      <NavLink
+        exact
+        to={routes.contacts}
+        className={styles.link}
+        activeClassName={styles.activeLink}
+      >
+        <Icon style={{ color: grey[50], fontSize: 25 }}>contacts</Icon>
+        <span className={styles.prompt}>Contacts</span>
       </NavLink>
     </div>
   </nav>

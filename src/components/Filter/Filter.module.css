@@ -4,6 +4,7 @@
   align-items: center;
   width: 80%;
   margin-right: auto;
+  margin-bottom: 0px;
 }
 .phonebook__filter input {
   display: inline-block;

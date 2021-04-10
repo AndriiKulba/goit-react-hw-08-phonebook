@@ -1,27 +1,28 @@
-import React from 'react';
-
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Icon from '@material-ui/core/Icon';
+import grey from '@material-ui/core/colors/grey';
 import { selectors } from '../redux/contacts';
-import { userAuthSelectors } from '../redux/user';
+import { userAuthActions } from '../redux/user';
 
-const ErrorMassage = error => {
-  return (
-    <div
-      className={!Boolean(error) ? 'msg_error ' : 'msg_error msg_error__active'}
-    >
-      <h3>Attention!!!</h3>
-      <p>{error}</p>
-      <button className="close_btn">
-        <Icon style={{ color: grey[500], fontSize: 20 }}>close</Icon>
-      </button>
-    </div>
-  );
-};
-const mapStateToProps = state => ({
-  error: selectors.getError(state),
+class ErrorMassage extends Component {
+  onclic = () => {
+    this.props.resetError('');
+  };
+  render() {
+    const { error } = this.props;
+    return (
+      <div className="msg_error msg_error_active">
+        <h3>Attention!!!</h3>
+        <p>{error}</p>
+        <button className="close_btn" onClick={this.onclic}>
+          <Icon style={{ color: grey[500], fontSize: 20 }}>close</Icon>
+        </button>
+      </div>
+    );
+  }
+}
+const mapDispatchToProps = dispatch => ({
+  resetError: value => dispatch(userAuthActions.resetError(value)),
 });
-const mapStateToProps = state => ({
-  isAuthenticated: userAuthSelectors.getIsAuthenticated(state),
-});
-
-export default connect(mapStateToProps)(ErrorMassage);
+export default connect(null, mapDispatchToProps)(ErrorMassage);

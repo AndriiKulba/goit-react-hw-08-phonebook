@@ -1,16 +1,17 @@
 import './App.css';
 import React, { Component, lazy, Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppBar from './components/AppBAr/AppBar';
 import Container from './components/Container/Container';
 import Loader from './components/Loader';
 import routes from './routes';
-import { userAuthOperations } from './redux/user';
+import { userAuthOperations, userAuthSelectors } from './redux/user';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
-import { exact } from 'prop-types';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ErrorMessage from './components/errorMessage';
 
 const HomeView = lazy(() =>
   import('./views/HomeView' /* webpackChunkName: "home-page" */),
@@ -34,10 +35,13 @@ class App extends Component {
   }
   render() {
     const { home, contacts, register, login } = routes;
+    const { error } = this.props;
+
     return (
       <div className="App">
         <Container>
           <AppBar />
+          {Boolean(error) && <ErrorMessage error={error} />}
           <Suspense fallback={<Loader />}>
             <Switch>
               <PublicRoute exact path={home} component={HomeView} />
@@ -66,9 +70,11 @@ class App extends Component {
     );
   }
 }
-
+const mapStateToProps = state => ({
+  error: userAuthSelectors.getError(state),
+});
 const mapDispatchToProps = {
   onGetCurretnUser: userAuthOperations.getCurrentUser,
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

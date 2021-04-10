@@ -21,6 +21,7 @@ const addValue = (name, value) => ({
   payload: value,
 });
 const resetValue = createAction('values/reset');
+const resetError = createAction('error/reset');
 
 export default {
   registerRequest,
@@ -37,4 +38,5 @@ export default {
   getCurrentUserError,
   addValue,
   resetValue,
+  resetError,
 };
