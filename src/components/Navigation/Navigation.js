@@ -10,7 +10,6 @@ import { userAuthSelectors } from '../../redux/user';
 
 class Navigation extends Component {
   render() {
-    
     return (
       <nav>
         <div className={styles.home_link}>
@@ -32,7 +31,7 @@ class Navigation extends Component {
           >
             <Icon style={{ color: grey[50], fontSize: 25 }}>contacts</Icon>
             <span className={styles.prompt}>
-              {this.props.isAuthenticated ? 'Contacts' : 'page blocked'}
+              {this.props.isAuthenticated ? 'Contacts' : 'Blocked'}
             </span>
           </NavLink>
         </div>
