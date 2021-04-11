@@ -38,4 +38,3 @@ const mapStateToProps = state => ({
   isAuthenticated: userAuthSelectors.getIsAuthenticated(state),
 });
 export default connect(mapStateToProps)(HomePage);
-// export default HomePage;
